@@ -12,3 +12,4 @@ Desglose Detallado de la Partida: 09.01:0901.11 - Café sin tostar, sin descafei
 0901.22: Café tostado, descafeinado: Tostado sin cafeína.
 0901.90: Los demás: Cáscara, cascarilla y sucedáneos que contengan café.
 Notas Clave de Clasificación: El Ministerio de Economía y Finanzas Públicas señala que el Capítulo 9 excluye mezclas de café con otras especias (que irían a 09.04-09.10) o preparaciones con alto contenido de carne, pero incluye los sucedáneos con café. La clasificación exacta depende del nivel de procesamiento (tostado/no), cafeína (con/sin), y el formato (grano/molido).Esta posición es fundamental para el Arancel Integrado Aduanero, que define los derechos de importación, tasa de estadística y el IVA, tal como se detalla en el documento del HCDN.
+Link de cuadro comparativo de las partidas de café: https://biblioteca.afip.gob.ar/pdfp/l24206_cuadro9.pdf
