@@ -4,6 +4,6 @@
 1. El apartado del subsitio web pide "un formulario avanzado para solicitar una cuenta comercial". ¿Qué es este tipo de cuenta? ¿Para qué se va a usar? ¿Con qué datos se crea?
 
 ## Equipo
-**Scrum Master:** Sol Gonzalez Ribone/n
-**Product Owner:** Javier Siccardi/n
+**Scrum Master:** Sol Gonzalez Ribone\
+**Product Owner:** Javier Siccardi\
 **Desarrolladores:** Jimena Castro, Maria Laura Hernandez, Sofia Conti Lema
