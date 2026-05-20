@@ -4,6 +4,6 @@
 Ninguna
 
 ## Equipo
-**Scrum Master:** Sol Gonzalez Ribone\
-**Product Owner:** Javier Siccardi\
-**Desarrolladores:** Jimena Castro, Maria Laura Hernandez, Sofia Conti Lema
+**Scrum Master:** Sol Gonzalez Ribone (Sol-G-R)\
+**Product Owner:** Javier Siccardi (javisic)\
+**Desarrolladores:** Jimena Castro (Jime-Castro), Maria Laura Hernandez (marialaurah81-byte), Sofia Conti Lema (sofi428)
