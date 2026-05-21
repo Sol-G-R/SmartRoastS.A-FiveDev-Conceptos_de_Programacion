@@ -4,6 +4,16 @@
 Ninguna
 
 ## Equipo
-**Scrum Master:** Sol Gonzalez Ribone (Sol-G-R)\
-**Product Owner:** Javier Siccardi (javisic)\
-**Desarrolladores:** Jimena Castro (Jime-Castro), Maria Laura Hernandez (marialaurah81-byte), Sofia Conti Lema (sofi428)
+| Nombre | Usuario | Rol | Tarea Python | Tarea HTML |
+| --- | --- | --- | --- | --- |
+| Javier Siccardi | javisic | Product Owner | - | - |
+| Sol Gonzalez Ribone | Sol-G-R | Scrum Master | Sec5 | - |
+| Jimena Castro | Jime-Castro | Desarrollador | - | - |
+| Maria Laura Hernandez | marialaurah81-byte | Desarrollador | - | - |
+| Sofia Conti Lema | sofi428 | Desarrollador | - | - |
+
+## Alcances Python
+(a definir)
+
+## Alcances HTML
+(a definir)
