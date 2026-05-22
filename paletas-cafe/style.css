@@ -1,0 +1,30 @@
+.container{
+    margin: 10px;
+}
+
+p{
+    padding: 5px 0px 5px 0px;
+    color: #333;
+}
+
+.titulos{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:bold;
+    font-style: normal;
+}
+
+.titulosb{
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.textos{
+    font-family: "Source Sans 3", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: 18px;
+    font-style: normal;
+}
