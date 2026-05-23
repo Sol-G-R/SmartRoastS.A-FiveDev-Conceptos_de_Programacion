@@ -9,12 +9,19 @@ dist_prov = 0 #STR. Provincia destinataria del envío
 
 
 # Recuerden mantener buena ortografía y espaciado en los textos que se muestran al usuario
-print("¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntroduzca la información de su pedido y se le devolverá la cantidad exacta que pagaría por el total de la operación, incluyendo costos de aduana e impuestos.")
-
+print("------------------------------------------------------------------")
+print("\n")
+print("¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntroduzca la información de su pedido y se le devolverá la cantidad exacta que pagaría por el \ntotal de la operación, incluyendo costos de aduana e impuestos.")
+print("\n")
+print("------------------------------------------------------------------")
 
 # SECCIÓN 1: Destino
 # pregunta al cliente los distintos datos sobre la dirección de destino en el siguiente orden: país (ofrece lista de opciones: Argentina, Chile, Bolivia, Uruguay), provincia, ciudad. Añadir distintas cantidades al acumulador principal "precio_fin" según las opciones seleccionadas (usar números cualquiera por ahora)
-
+print("****************** DESTINO ******************")
+print("\n")
+print("En esta sección se introducirán los datos de destino del pedido.\n(ELIMINAR ESTE PRINT LUEGO DE PROGRAMAR LA SECCIÓN)")
+print("\n")
+print("*********************************************")
 
 
 # SECCIÓN 2: Peso
