@@ -44,6 +44,12 @@ print("*********************************************")
 
 # SECCIÓN 4: Recargos
 # utiliza la información de Destino para saber qué recargos aduaneros aplicar. 
+para esto, se pueden usar condicionales para aplicar distintos recargos según el país de destino. Añadir distintas cantidades al acumulador principal "precio_fin" según las opciones seleccionadas (usar números cualquiera por ahora)
+print("****************** RECARGOS ******************")
+print("\n")
+print("En esta sección se introducirán los datos de recargos aduaneros del pedido.\n(ELIMINAR ESTE PRINT LUEGO DE PROGRAMAR LA SECCIÓN)")
+print("\n")
+print("*********************************************")
 
 
 
