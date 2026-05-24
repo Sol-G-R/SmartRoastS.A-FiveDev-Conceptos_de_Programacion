@@ -34,6 +34,11 @@ print("*********************************************")
 
 # SECCIÓN 3: Transporte
 # pregunta al cliente qué tipo de transporte desea según el país de Destino que eligió antes: si es en Argentina solo aparece opción terrestre, si es en cualquier otro puede elegir entre terrestre o aéreo. Añadir distintas cantidades al acumulador principal "precio_fin" según las opciones seleccionadas (usar números cualquiera por ahora)
+print("****************** TRANSPORTE ******************")
+print("\n")
+print("En esta sección se introducirán los datos de transporte del pedido.\n(ELIMINAR ESTE PRINT LUEGO DE PROGRAMAR LA SECCIÓN)")
+print("\n")
+print("*********************************************")
 
 
 
