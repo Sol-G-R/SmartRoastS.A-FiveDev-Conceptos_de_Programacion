@@ -2,6 +2,7 @@
 
 precio_fin = 0 #FLOAT. Cantidad de plata que se le mostrará al cliente en el ticket (variable acumuladora que se pasa de sección a sección)
 dist_prov = 0 #STR. Provincia destinataria del envío
+transporte = 0 #STR. Tipo de transporte seleccionado (Terrestre o Aeréo).
 
 # NOTA: ya que tenemos el diccionario de referencia, acordemos que los nombres de todas las variables tengan un máximo de 2 palabras y lo más abreviadas posible (EJ: color, altura_base, cant_max) para mayor agilidad, pero siempre manteniéndose entendibles
 
@@ -34,7 +35,11 @@ print("*********************************************")
 
 # SECCIÓN 3: Transporte
 # pregunta al cliente qué tipo de transporte desea según el país de Destino que eligió antes: si es en Argentina solo aparece opción terrestre, si es en cualquier otro puede elegir entre terrestre o aéreo. Añadir distintas cantidades al acumulador principal "precio_fin" según las opciones seleccionadas (usar números cualquiera por ahora)
-
+print("****************** TRANSPORTE ******************")
+print("\n")
+print("En esta sección se seleccionará el tipo de transporte para su envío.")
+print("\n")
+print("************************************************")
 
 
 # SECCIÓN 4: Recargos
