@@ -1,4 +1,4 @@
-## Para cálculo del cotizador
+## Para cálculos del cotizador
 **Recargos**\
 Por tipo de transporte: terrestre ($0.5/km), aéreo ($0.8/km)\
 Flete: distancia de la región x tipo de transporte\
