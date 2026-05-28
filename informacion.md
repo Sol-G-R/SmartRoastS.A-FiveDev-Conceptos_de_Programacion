@@ -1,3 +1,25 @@
+## Para cálculo del cotizador
+**Recargos**\
+Por tipo de transporte: terrestre ($X/km), aéreo ($X/km)\
+Flete: distancia de la región x tipo de transporte\
+Control Fitosanitario: $150\
+Embalaje Especial e Higroscópico: $450 (si se elige)\
+IVA de cada país: cierto % sobre el costo pre-total, que es el costo del paquete + todos los recargos anteriores
+
+**Distancias por región**\
+BOLIVIA: sur (Tarija 1300km), norte (La Paz 2010km)\
+PARAGUAY: sur (Asunción 1235km), norte (Mariscal José Félix Estigarribia 1534km)\
+URUGUAY: única región (Montevideo 995km)\
+
+**IVAs de cada país**\
+BOLIVIA: IVA boliviano de importación (15%)\
+PARAGUAY: IVA paraguayo de importación (10%)\
+URUGUAY: IVA uruguayo de importación (22%)\
+
+**Operación a seguir:** (CB + transporte + flete + control + [embalaje]) + %IVA
+
+---
+
 Tipos de Blends:
 Blend de torrefacto: se trata de un café en cuyo proceso se ha añadido azúcar, de modo que el grano de café adquiere una especie de coraza. Esta técnica pretendía mantener intactos el sabor y el aroma del grano, pero se ha comprobado que no es así. Realmente se está añadiendo un elemento al proceso que no incorpora nada, por lo que se está desvirtuando el auténtico sabor del grano y, como consecuencia, su aroma y propiedades. Incluso, este café es mucho más oscuro, tirando hacia el negro, cuando el café debe tener un color más cercano al marrón oscuro.
 Blend de robusta: los granos de arábica aportan aroma y sabores delicados al café, los granos de robusta aportan cuerpo y sabores más fuertes. Según esta lógica, un blend de arábica y robusta podría ser la combinación perfecta de aroma, sabor y cuerpo. Aunque hoy día podemos encontrar granos de robusta de una calidad excepcional con gusto achocolatado y poco amargor, la realidad es que la mayor parte de este tipo de café se comercializa meramente para reducir los costes de producción. En otras palabras, el robusta es un café barato y se utiliza para conseguir un producto económico.
