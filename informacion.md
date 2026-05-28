@@ -1,6 +1,6 @@
 ## Para cálculo del cotizador
 **Recargos**\
-Por tipo de transporte: terrestre ($X/km), aéreo ($X/km)\
+Por tipo de transporte: terrestre ($0.5/km), aéreo ($0.8/km)\
 Flete: distancia de la región x tipo de transporte\
 Control Fitosanitario: $150\
 Embalaje Especial e Higroscópico: $450 (si se elige)\
