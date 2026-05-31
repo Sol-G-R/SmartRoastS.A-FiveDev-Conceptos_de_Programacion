@@ -1,9 +1,8 @@
 ## Para cálculos del cotizador
 **Recargos**\
-Por tipo de transporte: terrestre ($0.5/km), aéreo ($0.8/km)\
-Flete: distancia de la región x tipo de transporte\
-Control Fitosanitario: $150\
 Embalaje Especial e Higroscópico: $450 (si se elige)\
+Por tipo de transporte: terrestre ($0.5/km), aéreo ($0.8/km)\
+Control Fitosanitario: $150\
 IVA de cada país: cierto % sobre el costo pre-total, que es el costo del paquete + todos los recargos anteriores
 
 **Distancias por región**\
@@ -11,12 +10,14 @@ BOLIVIA: sur (Tarija 1300km), norte (La Paz 2010km)\
 PARAGUAY: sur (Asunción 1235km), norte (Mariscal José Félix Estigarribia 1534km)\
 URUGUAY: única región (Montevideo 995km)\
 
+FALTA FUNCIÓN QUE UTILICE EL PESO
+
 **IVAs de cada país**\
 BOLIVIA: IVA boliviano de importación (15%)\
 PARAGUAY: IVA paraguayo de importación (10%)\
 URUGUAY: IVA uruguayo de importación (22%)\
 
-**Operación a seguir:** (CB + transporte + flete + control + [embalaje]) + %IVA
+**Operación a seguir:** (CB + embalaje + [distancia * transporte] + ..... + fitosanitario) + %IVA
 
 ---
 
