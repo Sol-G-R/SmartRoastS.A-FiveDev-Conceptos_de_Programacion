@@ -4,8 +4,8 @@
 Ninguna
 
 ## Equipo
-| Nombre | Usuario | Rol | Tarea Python |
-| --- | --- | --- | --- |
+| Nombre | Usuario | Rol
+| --- | --- | --- | ---
 | Javier Siccardi | javisic | Product Owner
 | Sol Gonzalez Ribone | Sol-G-R | Scrum Master
 | Jimena Castro | Jime-Castro | Desarrollador
