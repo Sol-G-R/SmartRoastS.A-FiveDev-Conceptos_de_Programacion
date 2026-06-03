@@ -1,27 +1,49 @@
-# Diccionario de variables del ticket (todas las variables que se registren acá van a mostrarse)
+# Diccionario de variables del ticket (todas las variables del programa se registran aca)
 dicc = {
-    "nombre": "x",
-    "costo_base": 0.0,
-    "pais": ["Bolivia", "Paraguay", "Uruguay"],
-    "region": ["Norte", "Sur", "-"],
-    "transporte": ["Terrestre ($0.5/km)", "Aéreo ($0.8/km)"],
-    "peso": 0,
-    "embalaje": False,
-    "fitosanitario": 150,
-    "iva": ["15%", "10%", "22%"],
-    "costo_fin": 0.0
+    "pais": {
+        "bolivia": {
+            "region": {"norte": "x", "sur": "x"},
+            "iva": 15
+        },
+
+        "paraguay": {
+            "region": {"norte": "x", "sur": "x"},
+            "iva": 10
+        },
+        
+        "uruguay": {
+            "region": {"unica": "x"},
+            "iva": 22
+        },
+    },
+
+    "ninguno": {
+        "ninguno": {
+            "transporte": {"terrestre": 0.5, "aereo": 0.8},
+
+            "ninguno": {
+                "nombre": "x",
+                "costo_base": 0.0,
+                "peso": 0,
+                "embalaje": False,
+                # "fitosanitario": 150,
+                "costo_fin": 0.0
+            }
+        }
+    }
 }
 
-def aniadir_a_dicc(key):
-    valor = input("usuario ingresa el valor del key: ")
-    dicc[key] = valor
 
-# [explicación]
-"""
-aniadir_a_dicc("nombre",x)
-"""
+def aniadir_a_dicc(subdicc1, subdicc2, subdicc3, key, valor):
+    dicc[subdicc1][subdicc2][subdicc3][key] = valor
 
-# NOTA: ya que tenemos el diccionario de referencia, acordemos que los nombres de todas las variables tengan un máximo de 2 palabras y lo más abreviadas posible (EJ: color, altura_base, cant_max) para mayor agilidad, pero siempre manteniéndose entendibles
+# DENTRO DE CADA SECCIÓN HABRÁN LAS SIGUIENTES ASIGNACIONES:
+# subdicc1 = "nombre de primer subdiccionario (o "ninguno" de no tener)"
+# subdicc2 = "nombre de segundo subdiccionario (o "ninguno" de no tener)"
+# subdicc3 = "nombre de tercer subdiccionario (o "ninguno" de no tener)"
+# key = "key de la sección"
+# valor = input("usuario ingresa el valor del key: ")
+# MÁS EL LLAMADO A LA FUNCIÓN ANTERIOR
 
 # Recuerden mantener buena ortografía y espaciado en los textos que se muestran al usuario
 print("\n---------------------------------------------------------------------")
@@ -29,7 +51,7 @@ print("    ¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntrod
 print("---------------------------------------------------------------------\n")
 
 print("****************** NOMBRE ******************")
-input(print("Ingrese el nombre de la persona a cargo del pedido: "))
+input("limpiado")
 print("*********************************************\n")
 
 print("****************** COSTO BASE ******************")
