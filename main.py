@@ -1,81 +1,118 @@
-# Diccionario de variables del ticket (todas las variables del programa se registran aca)
+# Diccionarios de variables del ticket (solo las que podrían llegar a mostrarse en el ticket final)
 dicc = {
-    "pais": {
-        "bolivia": {
-            "region": {"norte": "x", "sur": "x"},
-            "iva": 15
-        },
+    "bolivia": {
+        "norte": 2010, 
+        "sur": 1300,
 
-        "paraguay": {
-            "region": {"norte": "x", "sur": "x"},
-            "iva": 10
-        },
-        
-        "uruguay": {
-            "region": {"unica": "x"},
-            "iva": 22
-        },
+        "iva": 15
+    },
+    "paraguay": {
+        "norte": 1534, 
+        "sur"  : 1235,
+
+        "iva": 10
+    },
+    "uruguay": {
+        "unica": 995,
+
+        "iva": 22
     },
 
-    "ninguno": {
-        "ninguno": {
-            "transporte": {"terrestre": 0.5, "aereo": 0.8},
+    "terrestre": 0.5,
+    "aereo": 0.8,
 
-            "ninguno": {
-                "nombre": "x",
-                "costo_base": 0.0,
-                "peso": 0,
-                "embalaje": False,
-                # "fitosanitario": 150,
-                "costo_fin": 0.0
-            }
-        }
-    }
+    "embalaje": 450,
+    "fitosanitario": 150
 }
 
-
-def aniadir_a_dicc(subdicc1, subdicc2, subdicc3, key, valor):
-    dicc[subdicc1][subdicc2][subdicc3][key] = valor
-
-# DENTRO DE CADA SECCIÓN HABRÁN LAS SIGUIENTES ASIGNACIONES:
-# subdicc1 = "nombre de primer subdiccionario (o "ninguno" de no tener)"
-# subdicc2 = "nombre de segundo subdiccionario (o "ninguno" de no tener)"
-# subdicc3 = "nombre de tercer subdiccionario (o "ninguno" de no tener)"
-# key = "key de la sección"
-# valor = input("usuario ingresa el valor del key: ")
-# MÁS EL LLAMADO A LA FUNCIÓN ANTERIOR
-
-# Recuerden mantener buena ortografía y espaciado en los textos que se muestran al usuario
-print("\n---------------------------------------------------------------------")
-print("    ¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntroduzca la información de su pedido y se le devolverá la cantidad\nexacta que pagaría por el total de la operación, incluyendo costos\nde aduana e impuestos.")
-print("---------------------------------------------------------------------\n")
-
-print("****************** NOMBRE ******************")
-input("limpiado")
-print("*********************************************\n")
-
-print("****************** COSTO BASE ******************")
-print("limpiado")
-print("*********************************************\n")
-
-print("****************** PAÍS ******************")
-print("limpiado")
-print("*********************************************\n")
-
-print("****************** REGIÓN ******************")
-print("limpiado")
-print("*********************************************\n")
-
-print("****************** TRANSPORTE ******************")
-print("limpiado")
-print("*********************************************\n")
-
-print("****************** PESO ******************")
-print("limpiado")
-print("*********************************************\n")
+venta = {
+    #"nombre": "x",
+    #"costo_base": 0.0,
+    #"pais": "x",
+    #"region": "referir a dicc",
+    #"transporte": "referir a dicc",
+    #"peso": 0,
+    #"eleccion_embalaje": True,
+    #"obligatorio_fitosanitario": True,
+    #"iva": "referir a dicc",
+    #"costo_fin": 0.0
+}
+# Las entradas de "venta" serán creadas en la sección que corresponda con los inputs del usuario.
+# Si es un key totalmente nuevo, irá, por ejemplo:
+#       venta[peso] = int(input("usuario, ingrese el peso del paquete: "))
+# Si es un key basado en un valor NUMÉRICO fijo del "dicc", irá, por ejemplo:
+#       venta[iva] = dicc[paraguay][iva]
 
 
 
-# Ticket
-print("el total es ...")
-print("---------------------------------------------------------------------")
+#               El profe dijo que el menú debería ir dentro de su propia función, el "main"
+def main():
+    # Recuerden mantener buena ortografía y espaciado en los textos que se muestran al usuario
+    print("\n" + "-"*69)
+    print(" "*4 + "¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntroduzca la información de su pedido y se le devolverá la cantidad\nexacta que pagaría por el total de la operación, incluyendo costos\nde transporte, IVA y otros recargos.")
+    print("-"*69 + "\n")
+
+    print("****************** NOMBRE ******************")
+    print("limpiado")
+    print("*********************************************\n")
+
+    print("****************** COSTO BASE ******************")
+    print("limpiado")
+    print("*********************************************\n")
+
+    print("****************** PAÍS ******************")
+    print("limpiado")
+    print("*********************************************\n")
+
+    print("****************** REGIÓN ******************")
+    print("limpiado")
+    print("*********************************************\n")
+
+    print("****************** TRANSPORTE ******************")
+    print("limpiado")
+    print("*********************************************\n")
+
+    # ignorar Peso por ahora
+    # print("****************** PESO ******************")
+    # print("a decidir cómo usar")
+    # print("*********************************************\n")
+
+    print("****************** EMBALAJE ******************")
+    print("limpiado")
+    print("*********************************************\n")
+
+
+
+#-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
+def sumar_tarifa_fija(estado,tarifa):
+    resultado = 0
+    return resultado
+
+def calcular_flete(distancia,tarifa):
+    resultado = 0
+    return resultado
+
+def calcular_total():
+    # SOBRE costo_fin HAY QUE:
+    #sumar costo_base
+    #sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
+    #sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
+    #sumar resultado de calcular_flete()
+
+    #dividir costo_fin por iva y reasignarlo sobre sí mismo
+    resultado = 0
+    return resultado
+#-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
+
+
+
+def imprimir_ticket():
+    # ticket mostrando precio final, un desglose de cada costo, y los datos no-númericos (nombre, país)
+    print()
+
+
+
+# LO ÚNICO QUE EL PROGRAMA EJECUTA VERDADERAMENTE:
+main()
+precio_total = calcular_total()
+imprimir_ticket(precio_total)
