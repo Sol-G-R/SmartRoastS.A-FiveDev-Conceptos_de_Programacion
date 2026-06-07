@@ -69,7 +69,14 @@ def main():
     print("*********************************************\n")
 
     print("****************** TRANSPORTE ******************")
-    print("limpiado")
+    while True:
+        opcion = input("Ingrese el tipo de transporte ('terrestre' o 'aereo'): ").strip().lower()
+        if opcion == "terrestre" or opcion == "aereo":
+            venta["transporte"] = opcion
+            print(f"Transporte seleccionado exitosamente: {opcion.capitalize()}")
+            break
+    else:
+        print("[ERROR] opcion inválida. Por favor, escriba 'terrestre' o 'aereo'.")
     print("*********************************************\n")
 
     # ignorar Peso por ahora
