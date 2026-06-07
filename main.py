@@ -77,6 +77,11 @@ def main():
     # print("a decidir cómo usar")
     # print("*********************************************\n")
 
+    #A chequear, lo hice así y dsps confirmamos como lo vamos a hacer
+    print("******************** PESO ********************")
+    venta["peso"] = float(input("Ingrese el peso del pedido en kilogramos: "))
+    print("**********************************************\n")
+
     print("****************** EMBALAJE ******************")
     print("limpiado")
     print("*********************************************\n")
