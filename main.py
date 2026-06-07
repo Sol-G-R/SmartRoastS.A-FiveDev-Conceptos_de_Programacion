@@ -85,23 +85,40 @@ def main():
 
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 def sumar_tarifa_fija(estado,tarifa):
-    resultado = 0
+    # Si el usuario eligió la opción (True), devuelve el costo fijo, si no, 0.
+    if estado == True:
+        resultado = tarifa
+    else:
+        resultado = 0
     return resultado
 
 def calcular_flete(distancia,tarifa):
-    resultado = 0
+    # Multiplica el peso por el coeficiente de transporte.
+    resultado = distancia * tarifa
     return resultado
 
 def calcular_total():
-    # SOBRE costo_fin HAY QUE:
-    #sumar costo_base
-    #sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
-    #sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
-    #sumar resultado de calcular_flete()
+    # Arrancamos el costo final en 0.0 para calcularlo limpio.
+    costo_fin = 0.0
 
-    #dividir costo_fin por iva y reasignarlo sobre sí mismo
-    resultado = 0
-    return resultado
+    # 1. sumar costo_base
+    costo_fin += venta["costo_base"]
+
+    # 2. sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
+    costo_fin += sumar_tarifa_fija(venta["eleccion_embalaje"], dicc["embalaje"])
+
+    # 3. sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
+    costo_fin += sumar_tarifa_fija(venta["obligatorio_fitosanitario"], dicc["fitosanitario"])
+   
+    # 4. sumar resultado de calcular_flete()(usé peso como "distancia", y el valor del transporte como "tarifa")
+    costo_fin += calcular_flete(venta["peso"], venta["transporte"])
+
+    # 5. dividir costo_fin por iva y reasignarlo sobre sí mismo (fórmula: costo * (1 + IVA / 100))
+    porcentaje_iva = venta["iva"]
+    costo_fin = costo_fin * (1 + porcentaje_iva / 100)
+
+    # (total final redondeado)
+    return round(costo_fin, 2)
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
 
