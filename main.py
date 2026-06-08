@@ -59,6 +59,17 @@ def main():
     print("****************** COSTO BASE ******************")
     print("limpiado")
     print("*********************************************\n")
+    while True:
+        try:
+            costo = float(input("Ingrese el costo base del pedido en dólares: "))
+            if costo > 0:
+                venta["costo_base"] = costo
+                print(f"Costo base registrado: ${costo:.2f}")
+                break
+            else:
+                print("[ERROR] El costo debe ser un número positivo.")
+        except ValueError:
+            print("[ERROR] Por favor, ingrese un número válido.")
 
     print("****************** PAÍS ******************")
     print("limpiado")
