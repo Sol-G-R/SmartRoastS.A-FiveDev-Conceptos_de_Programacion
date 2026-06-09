@@ -72,7 +72,9 @@ def main():
             print("[ERROR] Por favor, ingrese un número válido.")
 
     print("****************** PAÍS ******************")
-    print("limpiado")
+    #print("limpiado")
+    seleccionar_pais()
+    print(f"País seleccionado: {venta['pais'].capitalize()}\n")
     print("*********************************************\n")
 
     print("****************** REGIÓN ******************")
@@ -120,7 +122,33 @@ def calcular_total():
     return resultado
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
+#Función que selecciona al país de destino.
+def seleccionar_pais():
 
+    paises = []
+
+    for clave, valor in dicc.items():
+        if isinstance(valor, dict):
+            paises.append(clave)
+
+    while True:
+
+        try:
+            print("\nSeleccione el país de destino:")
+
+            for i, pais in enumerate(paises, start=1):
+                print(f"{i} - {pais.capitalize()}")
+
+            opcion = int(input("Seleccione un país: "))
+
+            if 1 <= opcion <= len(paises):
+                venta["pais"] = paises[opcion - 1]
+                return
+
+            print("Opción inválida.")
+
+        except ValueError:
+            print("Debe ingresar un número.")
 
 def imprimir_ticket():
     # ticket mostrando precio final, un desglose de cada costo, y los datos no-númericos (nombre, país)
@@ -131,4 +159,5 @@ def imprimir_ticket():
 # LO ÚNICO QUE EL PROGRAMA EJECUTA VERDADERAMENTE:
 main()
 precio_total = calcular_total()
-imprimir_ticket(precio_total)
+imprimir_ticket()
+
