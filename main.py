@@ -65,17 +65,23 @@ def main():
     print("*********************************************\n")
 
     print("****************** REGIÓN ******************")
-    print("limpiado")
     # Buscamos el país que ya se cargó antes en el diccionario venta
-    pais_destino = venta.get("pais", "").lower()
 
-    if "uruguay" in pais_destino:
+    match venta[pais]:
+        case "bolivia":
+            region = input("Ingrese región de destino (sur / norte): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["bolivia"]["sur"]
+
+
+
+                if venta[pais] == "995":
         venta["region"] = "unica"
-        print("Región asignada automáticamente: unica (Uruguay)")
+        print("Región asignada automáticamente: única (Uruguay)")
     else:
         while True:
             region = input("Ingrese región de destino (sur / norte): ").strip().lower()
-            if region == "sur" or region == "norte":
+            if region == "Psur" or region == "norte":
                 venta["region"] = region
                 print(f"Región seleccionada exitosamente: {region.capitalize()}")
                 break
