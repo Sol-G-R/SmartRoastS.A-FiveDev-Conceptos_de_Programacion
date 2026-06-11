@@ -30,6 +30,7 @@ venta = {
     #"costo_base": 0.0,
     #"pais": "x",
     #"region": "referir a dicc",
+    #"costo_region": 0.0,
     #"transporte": "referir a dicc",
     #"peso": 0,
     #"eleccion_embalaje": True,
@@ -65,22 +66,22 @@ def main():
     print("*********************************************\n")
 
     print("****************** REGIÓN ******************")
-    print("limpiado")
-    # Buscamos el país que ya se cargó antes en el diccionario venta
-    pais_destino = venta.get("pais", "").lower()
-
-    if "uruguay" in pais_destino:
-        venta["region"] = "unica"
-        print("Región asignada automáticamente: unica (Uruguay)")
-    else:
-        while True:
-            region = input("Ingrese región de destino (sur / norte): ").strip().lower()
-            if region == "sur" or region == "norte":
-                venta["region"] = region
-                print(f"Región seleccionada exitosamente: {region.capitalize()}")
-                break
+    match venta["pais"]:
+        case "bolivia":
+            region = input("Ingrese región (norte/sur): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["bolivia"]["sur"]
             else:
-                print("[ERROR] opción inválida. Por favor, escriba 'sur' o 'norte'.")
+                venta["region"] = dicc["bolivia"]["norte"]
+        case "paraguay":
+            region = input("Ingrese región (norte/sur): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["paraguay"]["sur"]
+            else:
+                venta["region"] = dicc["paraguay"]["norte"]
+        case "uruguay":
+            venta["region"] = "unica"
+            venta["costo_region"] = dicc["uruguay"]["unica"]
     print("*********************************************\n")
 
     print("****************** TRANSPORTE ******************")
