@@ -30,6 +30,7 @@ venta = {
     #"costo_base": 0.0,
     #"pais": "x",
     #"region": "referir a dicc",
+    #"costo_region": 0.0,
     #"transporte": "referir a dicc",
     #"peso": 0,
     #"eleccion_embalaje": True,
@@ -78,7 +79,22 @@ def main():
     print("*********************************************\n")
 
     print("****************** REGIÓN ******************")
-    print("limpiado")
+    match venta["pais"]:
+        case "bolivia":
+            region = input("Ingrese región (norte/sur): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["bolivia"]["sur"]
+            else:
+                venta["region"] = dicc["bolivia"]["norte"]
+        case "paraguay":
+            region = input("Ingrese región (norte/sur): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["paraguay"]["sur"]
+            else:
+                venta["region"] = dicc["paraguay"]["norte"]
+        case "uruguay":
+            venta["region"] = "unica"
+            venta["costo_region"] = dicc["uruguay"]["unica"]
     print("*********************************************\n")
 
     print("****************** TRANSPORTE ******************")
