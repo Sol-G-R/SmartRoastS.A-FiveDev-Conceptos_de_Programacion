@@ -34,8 +34,7 @@ venta = {
     #"transporte": "referir a dicc",
     #"peso": 0,
     #"eleccion_embalaje": True,
-    #"obligatorio_fitosanitario": True,
-    #"iva": "referir a dicc",
+    #"obligatorio_fi a dicc",
     #"costo_fin": 0.0
 }
 # Las entradas de "venta" serán creadas en la sección que corresponda con los inputs del usuario.
@@ -98,7 +97,14 @@ def main():
     print("*********************************************\n")
 
     print("****************** TRANSPORTE ******************")
-    print("limpiado")
+    while True:
+        opcion = input("Ingrese el tipo de transporte ('terrestre' o 'aereo'): ").strip().lower()
+        if opcion in ["terrestre", "aereo"]:
+            venta["transporte"] = dicc[opcion]
+            print(f"Transporte seleccionado exitosamente: {opcion.capitalize()}")
+            break
+        else:
+            print("[ERROR] opcion inválida. Por favor, escriba 'terrestre' o 'aereo'.")
     print("*********************************************\n")
 
     # ignorar Peso por ahora
@@ -136,6 +142,37 @@ def calcular_total():
     #dividir costo_fin por iva y reasignarlo sobre sí mismo
     resultado = 0
     return resultado
+    if estado == True:
+        resultado = tarifa
+    else:
+        resultado = 0
+    return resultado
+
+def calcular_flete(distancia,tarifa):
+    resultado = distancia * tarifa
+    return resultado
+
+def calcular_total():
+    costo_fin = venta["costo_base"]
+
+    costo_fin += sumar_tarifa_fija(venta["eleccion_embalaje"], dicc["embalaje"])
+
+    costo_fin += sumar_tarifa_fija(venta["obligatorio_fitosanitario"], dicc["fitosanitario"])
+
+    costo_fin += calcular_flete(venta["peso"], venta["transporte"])
+
+    porcentaje_iva = venta["iva"]
+    costo_fin += costo_fin * (porcentaje_iva / 100)
+
+    return round(costo_fin, 2)
+    
+    # SOBRE costo_fin HAY QUE:
+    #sumar costo_base
+    #sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
+    #sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
+    #sumar resultado de calcular_flete()
+
+    #dividir costo_fin por iva y reasignarlo sobre sí mismo
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
 #Función que selecciona al país de destino.
