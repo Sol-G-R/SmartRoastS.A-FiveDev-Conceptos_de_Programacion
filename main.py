@@ -30,6 +30,7 @@ venta = {
     #"costo_base": 0.0,
     #"pais": "x",
     #"region": "referir a dicc",
+    #"costo_region": 0.0,
     #"transporte": "referir a dicc",
     #"peso": 0,
     #"eleccion_embalaje": True,
@@ -59,13 +60,41 @@ def main():
     print("****************** COSTO BASE ******************")
     print("limpiado")
     print("*********************************************\n")
+    while True:
+        try:
+            costo = float(input("Ingrese el costo base del pedido en dólares: "))
+            if costo > 0:
+                venta["costo_base"] = costo
+                print(f"Costo base registrado: ${costo:.2f}")
+                break
+            else:
+                print("[ERROR] El costo debe ser un número positivo.")
+        except ValueError:
+            print("[ERROR] Por favor, ingrese un número válido.")
 
     print("****************** PAÍS ******************")
-    print("limpiado")
+    #print("limpiado")
+    seleccionar_pais()
+    print(f"País seleccionado: {venta['pais'].capitalize()}\n")
     print("*********************************************\n")
 
     print("****************** REGIÓN ******************")
-    print("limpiado")
+    match venta["pais"]:
+        case "bolivia":
+            region = input("Ingrese región (norte/sur): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["bolivia"]["sur"]
+            else:
+                venta["region"] = dicc["bolivia"]["norte"]
+        case "paraguay":
+            region = input("Ingrese región (norte/sur): ").strip().lower()
+            if region == "sur":
+                venta["region"] = dicc["paraguay"]["sur"]
+            else:
+                venta["region"] = dicc["paraguay"]["norte"]
+        case "uruguay":
+            venta["region"] = "unica"
+            venta["costo_region"] = dicc["uruguay"]["unica"]
     print("*********************************************\n")
 
     print("****************** TRANSPORTE ******************")
@@ -77,6 +106,11 @@ def main():
     # print("a decidir cómo usar")
     # print("*********************************************\n")
 
+    #A chequear, lo hice así y dsps confirmamos como lo vamos a hacer
+    print("******************** PESO ********************")
+    venta["peso"] = float(input("Ingrese el peso del pedido en kilogramos: "))
+    print("**********************************************\n")
+
     print("****************** EMBALAJE ******************")
     print("limpiado")
     print("*********************************************\n")
@@ -85,43 +119,71 @@ def main():
 
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 def sumar_tarifa_fija(estado,tarifa):
-    # Si el usuario eligió la opción (True), devuelve el costo fijo, si no, 0.
-    if estado == True:
-        resultado = tarifa
-    else:
-        resultado = 0
-    return resultado
+    if estado:
+        return tarifa
+    return 0
 
 def calcular_flete(distancia,tarifa):
-    # Multiplica el peso por el coeficiente de transporte.
     resultado = distancia * tarifa
     return resultado
 
 def calcular_total():
-    # Arrancamos el costo final en 0.0 para calcularlo limpio.
     costo_fin = 0.0
 
-    # 1. sumar costo_base
+    # costo base
     costo_fin += venta["costo_base"]
 
-    # 2. sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
-    costo_fin += sumar_tarifa_fija(venta["eleccion_embalaje"], dicc["embalaje"])
+    # embalaje
+    costo_fin += sumar_tarifa_fija(
+        venta["eleccion_embalaje"],
+        dicc["embalaje"]
+    )
 
-    # 3. sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
-    costo_fin += sumar_tarifa_fija(venta["obligatorio_fitosanitario"], dicc["fitosanitario"])
-   
-    # 4. sumar resultado de calcular_flete()(usé peso como "distancia", y el valor del transporte como "tarifa")
-    costo_fin += calcular_flete(venta["peso"], venta["transporte"])
+    # certificado fitosanitario
+    costo_fin += sumar_tarifa_fija(
+        venta["obligatorio_fitosanitario"],
+        dicc["fitosanitario"]
+    )
 
-    # 5. dividir costo_fin por iva y reasignarlo sobre sí mismo (fórmula: costo * (1 + IVA / 100))
-    porcentaje_iva = venta["iva"]
-    costo_fin = costo_fin * (1 + porcentaje_iva / 100)
+    # flete
+    costo_fin += calcular_flete(
+        venta["peso"],
+        venta["transporte"]
+    )
 
-    # (total final redondeado)
+    # IVA
+    costo_fin += costo_fin * (venta["iva"] / 100)
+
     return round(costo_fin, 2)
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
+#Función que selecciona al país de destino.
+def seleccionar_pais():
 
+    paises = []
+
+    for clave, valor in dicc.items():
+        if isinstance(valor, dict):
+            paises.append(clave)
+
+    while True:
+
+        try:
+            print("\nSeleccione el país de destino:")
+
+            for i, pais in enumerate(paises, start=1):
+                print(f"{i} - {pais.capitalize()}")
+
+            opcion = int(input("Seleccione un país: "))
+
+            if 1 <= opcion <= len(paises):
+                venta["pais"] = paises[opcion - 1]
+                return
+
+            print("Opción inválida.")
+
+        except ValueError:
+            print("Debe ingresar un número.")
 
 def imprimir_ticket():
     # ticket mostrando precio final, un desglose de cada costo, y los datos no-númericos (nombre, país)
@@ -132,4 +194,5 @@ def imprimir_ticket():
 # LO ÚNICO QUE EL PROGRAMA EJECUTA VERDADERAMENTE:
 main()
 precio_total = calcular_total()
-imprimir_ticket(precio_total)
+imprimir_ticket()
+
