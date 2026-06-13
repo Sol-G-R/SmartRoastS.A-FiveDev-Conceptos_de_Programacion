@@ -119,23 +119,42 @@ def main():
 
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 def sumar_tarifa_fija(estado,tarifa):
-    resultado = 0
-    return resultado
+    if estado:
+        return tarifa
+    return 0
 
 def calcular_flete(distancia,tarifa):
-    resultado = 0
+    resultado = distancia * tarifa
     return resultado
 
 def calcular_total():
-    # SOBRE costo_fin HAY QUE:
-    #sumar costo_base
-    #sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
-    #sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
-    #sumar resultado de calcular_flete()
+    costo_fin = 0.0
 
-    #dividir costo_fin por iva y reasignarlo sobre sí mismo
-    resultado = 0
-    return resultado
+    # costo base
+    costo_fin += venta["costo_base"]
+
+    # embalaje
+    costo_fin += sumar_tarifa_fija(
+        venta["eleccion_embalaje"],
+        dicc["embalaje"]
+    )
+
+    # certificado fitosanitario
+    costo_fin += sumar_tarifa_fija(
+        venta["obligatorio_fitosanitario"],
+        dicc["fitosanitario"]
+    )
+
+    # flete
+    costo_fin += calcular_flete(
+        venta["peso"],
+        venta["transporte"]
+    )
+
+    # IVA
+    costo_fin += costo_fin * (venta["iva"] / 100)
+
+    return round(costo_fin, 2)
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
 #Función que selecciona al país de destino.
