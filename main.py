@@ -226,3 +226,10 @@ while True:
         print("Opción inválida. Ingrese únicamente 'si' o 'no'.")
 
 
+
+
+# Solicitar el peso del pedido en kilogramos
+
+peso = float(input("Ingrese el peso del pedido en kilogramos: "))
+
+print("El peso ingresado es:", peso, "kg")
