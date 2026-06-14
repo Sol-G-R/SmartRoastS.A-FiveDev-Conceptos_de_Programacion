@@ -205,3 +205,24 @@ main()
 precio_total = calcular_total()
 imprimir_ticket()
 
+
+
+# Solicitar decisión del cliente
+
+while True:
+    embalaje = input(
+        "¿Desea Embalaje Especial e Higroscópico? (si/no): "
+    ).strip().lower()
+
+    if embalaje == "si":
+        print("Se agregó Embalaje Especial e Higroscópico al pedido.")
+        break
+
+    elif embalaje == "no":
+        print("Pedido sin Embalaje Especial e Higroscópico.")
+        break
+
+    else:
+        print("Opción inválida. Ingrese únicamente 'si' o 'no'.")
+
+
