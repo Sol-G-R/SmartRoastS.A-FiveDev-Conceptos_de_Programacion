@@ -22,108 +22,205 @@ dicc = {
     "aereo": 0.8,
 
     "embalaje": 450,
-    "fitosanitario": 150
+    "fitosanitario": 150,
+    "obligatorio_fitosanitario": True
 }
 
 venta = {
     #"nombre": "x",
     #"costo_base": 0.0,
     #"pais": "x",
-    #"region": "referir a dicc",
-    #"transporte": "referir a dicc",
+    #"dist_region": 0 (referir a dicc),
+    #"tarifa_transporte": 0 (referir a dicc),
     #"peso": 0,
     #"eleccion_embalaje": True,
-    #"obligatorio_fitosanitario": True,
-    #"iva": "referir a dicc",
+    #"iva": 0 (referir a dicc),
     #"costo_fin": 0.0
 }
-# Las entradas de "venta" serán creadas en la sección que corresponda con los inputs del usuario.
-# Si es un key totalmente nuevo, irá, por ejemplo:
-#       venta[peso] = int(input("usuario, ingrese el peso del paquete: "))
-# Si es un key basado en un valor NUMÉRICO fijo del "dicc", irá, por ejemplo:
-#       venta[iva] = dicc[paraguay][iva]
 
 
 
-#               El profe dijo que el menú debería ir dentro de su propia función, el "main"
 def main():
-    # Recuerden mantener buena ortografía y espaciado en los textos que se muestran al usuario
-    print("\n" + "-"*69)
+    print("\n" + "-"*70)
     print(" "*4 + "¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntroduzca la información de su pedido y se le devolverá la cantidad\nexacta que pagaría por el total de la operación, incluyendo costos\nde transporte, IVA y otros recargos.")
-    print("-"*69 + "\n")
+    print("-"*70 + "\n")
 
-    print("****************** NOMBRE ******************")
-    print("limpiado")
-    print("*********************************************\n")
 
-    print("****************** COSTO BASE ******************")
+    print(f" NOMBRE ".center(85, "*"))
     print("limpiado")
-    print("*********************************************\n")
+    print("*"*85 + "\n")
+
+
+    print(f" COSTO BASE ".center(85, "*"))
+# siguiendo los datos del sitio web se establecen los costos máximos y mínimos
     while True:
         try:
-            costo = float(input("Ingrese el costo base del pedido en dólares: "))
-            if costo > 0:
+            costo = float(input("Ingrese el costo base del pedido: "))
+            if costo >= 12000 and costo <= 172500000:
                 venta["costo_base"] = costo
-                print(f"Costo base registrado: ${costo:.2f}")
                 break
+            elif costo > 172500000:
+                print("  --> [ERROR] El costo excede el límite esperado, verifique el valor de su compra.\n")
             else:
-                print("[ERROR] El costo debe ser un número positivo.")
+                print("  --> [ERROR] El costo mínimo de un paquete es $12,000.\n")
         except ValueError:
-            print("[ERROR] Por favor, ingrese un número válido.")
+            print("  --> [ERROR] Ingrese solo un número.\n")
+    
+    print(f"  --> Costo base registrado: ${venta['costo_base']:.2f}")
+    print("*"*85 + "\n")
 
-    print("****************** PAÍS ******************")
-    print("limpiado")
-    print("*********************************************\n")
 
-    print("****************** REGIÓN ******************")
-    print("limpiado")
-    print("*********************************************\n")
+    print(f" PAÍS ".center(85, "*"))
+    paises = []
+    for clave, valor in dicc.items():
+        if isinstance(valor, dict):
+            paises.append(clave)
+    while True:
+        try:
+            print("Países de destino:")
 
-    print("****************** TRANSPORTE ******************")
-    print("limpiado")
-    print("*********************************************\n")
+            for i, pais in enumerate(paises, start=1):
+                print(f"{i} - {pais.capitalize()}")
 
-    # ignorar Peso por ahora
-    # print("****************** PESO ******************")
-    # print("a decidir cómo usar")
-    # print("*********************************************\n")
+            opcion = int(input("Seleccione un país: "))
 
-    print("****************** EMBALAJE ******************")
-    print("limpiado")
-    print("*********************************************\n")
+            if 1 <= opcion <= len(paises):
+                venta["pais"] = paises[opcion - 1]
+                break
+
+            print("  --> [ERROR] No es una de las opciones disponibles.\n")
+        except ValueError:
+            print("  --> [ERROR] Ingrese solo un número.\n")
+
+    venta["iva"] = dicc[venta['pais']]["iva"]
+    print(f"  --> País seleccionado: {venta['pais'].capitalize()}")
+    print("*"*85 + "\n")
+
+
+    print(f" REGIÓN ".center(85, "*"))
+    match venta["pais"]:
+        case "bolivia":
+            while True:
+                region = input("Ingrese la región de destino (norte/sur): ").strip().lower()
+                if region == "norte":
+                    venta["dist_region"] = dicc["bolivia"]["norte"]
+                    break
+                elif region == "sur":
+                    venta["dist_region"] = dicc["bolivia"]["sur"]
+                    break
+                else:
+                    print("  --> [ERROR] No es una de las opciones disponibles.\n")
+        case "paraguay":
+            while True:
+                region = input("Ingrese la región (norte/sur): ").strip().lower()
+                if region == "norte":
+                    venta["dist_region"] = dicc["paraguay"]["norte"]
+                    break
+                elif region == "sur":
+                    venta["dist_region"] = dicc["paraguay"]["sur"]
+                    break
+                else:
+                    print("  --> [ERROR] No es una de las opciones disponibles.\n")
+        case "uruguay":
+            print("Este país posee una única región de envío.")
+            venta["dist_region"] = dicc["uruguay"]["unica"]
+
+    print(f"  --> Distancia del envío: {venta['dist_region']}km")
+    print("*"*85 + "\n")
+
+
+    print(f" TRANSPORTE ".center(85, "*"))
+    while True:
+        opcion = input("Seleccione el tipo de transporte (terrestre/aereo): ").strip().lower()
+
+        if opcion in ["terrestre", "aereo"]:
+            venta["tarifa_transporte"] = dicc[opcion]
+            break
+        else:
+            print("  --> [ERROR] Opción inválida. Escriba 'terrestre' o 'aereo'.")
+
+    print(f"  --> Tarifa del tipo de transporte: ${venta["tarifa_transporte"]}/km")
+    print("*"*85 + "\n")
+
+
+    print(f" PESO ".center(85, "*"))
+# siguiendo los datos del sitio web se establece el peso máximo y mínimo
+    try:
+        kilos = int(input("Ingrese el peso del pedido en kilogramos: "))
+        if kilos >= 1 and kilos <= 15000:
+            venta["peso"] = kilos
+        elif kilos > 172500000:
+            print("  --> [ERROR] El peso excede el límite esperado, verifique el volumen de su compra.\n")
+        else:
+            print("  --> [ERROR] El peso mínimo de un pedido es 1kg.\n")
+    except ValueError:
+        print("  --> [ERROR] Ingrese solo un número.\n")
+    
+    print(f"  --> Peso del pedido registrado: {venta['peso']}kg")
+    print("*"*85 + "\n")
+
+
+    print(f" EMBALAJE ".center(85, "*"))
+    while True:
+        embalaje = input("¿Desea que su pedido cuente con Embalaje Especial e Higroscópico? (si/no): ").strip().lower()
+
+        if embalaje == "si":
+            print("Se agregó Embalaje Especial e Higroscópico al pedido.")
+            venta["eleccion_embalaje"] = True
+            break
+        elif embalaje == "no":
+            print("El pedido se enviará sin Embalaje Especial e Higroscópico.")
+            venta["eleccion_embalaje"] = False
+            break
+        else:
+            print("  --> [ERROR] Opción inválida. Escriba únicamente 'si' o 'no'.")
+    print("*"*85 + "\n")
 
 
 
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 def sumar_tarifa_fija(estado,tarifa):
-    resultado = 0
-    return resultado
+    if estado == True:
+        return tarifa
+    else:
+        return 0
 
 def calcular_flete(distancia,tarifa):
-    resultado = 0
+    resultado = distancia * tarifa
     return resultado
 
 def calcular_total():
-    # SOBRE costo_fin HAY QUE:
-    #sumar costo_base
-    #sumar resultado de sumar_tarifa_fija() con keys "eleccion_embalaje" y "embalaje"
-    #sumar resultado de sumar_tarifa_fija() con keys "obligatorio_fitosanitario" y "fitosanitario"
-    #sumar resultado de calcular_flete()
+    costo_fin = 0.0
 
-    #dividir costo_fin por iva y reasignarlo sobre sí mismo
-    resultado = 0
-    return resultado
+    costo_fin += venta["costo_base"]
+
+    costo_fin += sumar_tarifa_fija(
+        venta["eleccion_embalaje"],
+        dicc["embalaje"]
+    )
+
+    costo_fin += sumar_tarifa_fija(
+        dicc["obligatorio_fitosanitario"],
+        dicc["fitosanitario"]
+    )
+
+    costo_fin += calcular_flete(
+        venta["dist_region"],
+        venta["tarifa_transporte"]
+    )
+
+    costo_fin *= (venta["iva"] / 100)
+
+    return round(costo_fin, 2)
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
-
-
 def imprimir_ticket():
-    # ticket mostrando precio final, un desglose de cada costo, y los datos no-númericos (nombre, país)
+    # ticket mostrando precio final, un desglose de cada costo, y los datos no-númericos (nombre, país, region, etc.)
     print()
 
 
 
 # LO ÚNICO QUE EL PROGRAMA EJECUTA VERDADERAMENTE:
 main()
-precio_total = calcular_total()
-imprimir_ticket(precio_total)
+costo_fin = calcular_total()
+imprimir_ticket()
