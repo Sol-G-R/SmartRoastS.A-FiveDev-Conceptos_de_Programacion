@@ -145,18 +145,20 @@ def main():
 
     print(f" PESO ".center(85, "*"))
 # siguiendo los datos del sitio web se establece el peso máximo y mínimo
-    try:
-        kilos = int(input("Ingrese el peso del pedido en kilogramos: "))
-        if kilos >= 1 and kilos <= 15000:
-            venta["peso"] = kilos
-        elif kilos > 172500000:
-            print("  --> [ERROR] El peso excede el límite esperado, verifique el volumen de su compra.\n")
-        else:
-            print("  --> [ERROR] El peso mínimo de un pedido es 1kg.\n")
-    except ValueError:
-        print("  --> [ERROR] Ingrese solo un número.\n")
+    while True:
+        try: 
+            kilos = int(input("Ingrese el peso del pedido en kilogramos: "))
+            if kilos >= 1 and kilos <= 15000:
+                venta["peso"] = kilos
+                break
+            elif kilos > 15000:
+                print("  --> [ERROR] El peso excede el límite esperado, verifique el volumen de su compra.\n")
+            else:
+                print("  --> [ERROR] El peso mínimo de un pedido es 1kg.\n")
+        except ValueError:
+            print("  --> [ERROR] Ingrese solo un número.\n")
     
-    print(f"  --> Peso del pedido registrado: {venta['peso']}kg")
+    print(f"  --> Peso del pedido registrado: {venta["peso"]}kg")
     print("*"*85 + "\n")
 
 
@@ -165,11 +167,11 @@ def main():
         embalaje = input("¿Desea que su pedido cuente con Embalaje Especial e Higroscópico? (si/no): ").strip().lower()
 
         if embalaje == "si":
-            print("Se agregó Embalaje Especial e Higroscópico al pedido.")
+            print("  --> Se agregó Embalaje Especial e Higroscópico al pedido.")
             venta["eleccion_embalaje"] = True
             break
         elif embalaje == "no":
-            print("El pedido se enviará sin Embalaje Especial e Higroscópico.")
+            print("  --> El pedido se enviará sin Embalaje Especial e Higroscópico.")
             venta["eleccion_embalaje"] = False
             break
         else:
@@ -187,6 +189,15 @@ def sumar_tarifa_fija(estado,tarifa):
 
 def calcular_flete(distancia,tarifa):
     resultado = distancia * tarifa
+    return resultado
+
+def calcular_recargo_peso(kilos):
+    if kilos > 1000 and kilos <= 10000:
+        resultado = 50000
+    elif kilos > 10000:
+        resultado = 500000
+    else:
+        resultado = 0
     return resultado
 
 def calcular_total():
@@ -209,13 +220,15 @@ def calcular_total():
         venta["tarifa_transporte"]
     )
 
-    costo_fin *= (venta["iva"] / 100)
+    costo_fin += calcular_recargo_peso(venta["peso"])
+
+    costo_fin += costo_fin * (venta["iva"] / 100)
 
     return round(costo_fin, 2)
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
 def imprimir_ticket():
-    # ticket mostrando precio final, un desglose de cada costo, y los datos no-númericos (nombre, país, region, etc.)
+    # ticket mostrando costo_fin, un desglose de cada costo, y los datos no-númericos (nombre, país, región, etc.)
     print()
 
 
