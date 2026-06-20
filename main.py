@@ -41,17 +41,21 @@ venta = {
 
 
 def main():
-    print("\n" + "-"*70)
-    print(" "*4 + "¡Bienvenido al cotizador de exportación de SmartRoast S.A.!\nIntroduzca la información de su pedido y se le devolverá la cantidad\nexacta que pagaría por el total de la operación, incluyendo costos\nde transporte, IVA y otros recargos.")
-    print("-"*70 + "\n")
+    print("\n" + "="*85)
+    print("¡Bienvenido al cotizador de exportación de SmartRoast S.A.!".center(85))
+    print("Introduzca la información de su pedido y se le devolverá la cantidad".center(85))
+    print("exacta que pagaría por el total de la operación, incluyendo costos".center(85))
+    print("de transporte, IVA y otros recargos.".center(85))
+    print("="*85 + "\n")
 
+    print(f" NOMBRE ".center(85, "-"))
 
-    print(f" NOMBRE ".center(85, "*"))
-    print("limpiado")
-    print("*"*85 + "\n")
+    venta["nombre"] = input("Ingrese el nombre del cliente: ").strip().title()
 
+    print(f"  --> Nombre registrado: {venta['nombre']}")
+    print("="*85 + "\n")
 
-    print(f" COSTO BASE ".center(85, "*"))
+    print(f" COSTO BASE ".center(85, "-"))
 # siguiendo los datos del sitio web se establecen los costos máximos y mínimos
     while True:
         try:
@@ -64,13 +68,12 @@ def main():
             else:
                 print("  --> [ERROR] El costo mínimo de un paquete es $12,000.\n")
         except ValueError:
-            print("  --> [ERROR] Ingrese solo un número.\n")
+            print("  --> [ERROR] Ingrese solo un número.")
     
-    print(f"  --> Costo base registrado: ${venta['costo_base']:.2f}")
-    print("*"*85 + "\n")
+    print(f"  --> Costo base registrado: ${venta['costo_base']:.2f} \n")
+    print("="*85 + "\n")
 
-
-    print(f" PAÍS ".center(85, "*"))
+    print(f" PAÍS ".center(85, "-"))
     paises = []
     for clave, valor in dicc.items():
         if isinstance(valor, dict):
@@ -94,10 +97,9 @@ def main():
 
     venta["iva"] = dicc[venta['pais']]["iva"]
     print(f"  --> País seleccionado: {venta['pais'].capitalize()}")
-    print("*"*85 + "\n")
+    print("="*85 + "\n")
 
-
-    print(f" REGIÓN ".center(85, "*"))
+    print(f" REGIÓN ".center(85, "-"))
     match venta["pais"]:
         case "bolivia":
             while True:
@@ -126,10 +128,9 @@ def main():
             venta["dist_region"] = dicc["uruguay"]["unica"]
 
     print(f"  --> Distancia del envío: {venta['dist_region']}km")
-    print("*"*85 + "\n")
+    print("="*85 + "\n")
 
-
-    print(f" TRANSPORTE ".center(85, "*"))
+    print(f" TRANSPORTE ".center(85, "-"))
     while True:
         opcion = input("Seleccione el tipo de transporte (terrestre/aereo): ").strip().lower()
 
@@ -139,11 +140,10 @@ def main():
         else:
             print("  --> [ERROR] Opción inválida. Escriba 'terrestre' o 'aereo'.")
 
-    print(f"  --> Tarifa del tipo de transporte: ${venta["tarifa_transporte"]}/km")
-    print("*"*85 + "\n")
+    print(f"  --> Tarifa del tipo de transporte: ${venta['tarifa_transporte']}/km")
+    print("="*85 + "\n")
 
-
-    print(f" PESO ".center(85, "*"))
+    print(f" PESO ".center(85, "-"))
 # siguiendo los datos del sitio web se establece el peso máximo y mínimo
     while True:
         try: 
@@ -158,11 +158,10 @@ def main():
         except ValueError:
             print("  --> [ERROR] Ingrese solo un número.\n")
     
-    print(f"  --> Peso del pedido registrado: {venta["peso"]}kg")
-    print("*"*85 + "\n")
+    print(f"  --> Peso del pedido registrado: {venta['peso']}kg")
+    print("="*85 + "\n")
 
-
-    print(f" EMBALAJE ".center(85, "*"))
+    print(f" EMBALAJE ".center(85, "-"))
     while True:
         embalaje = input("¿Desea que su pedido cuente con Embalaje Especial e Higroscópico? (si/no): ").strip().lower()
 
@@ -176,7 +175,7 @@ def main():
             break
         else:
             print("  --> [ERROR] Opción inválida. Escriba únicamente 'si' o 'no'.")
-    print("*"*85 + "\n")
+    print("="*85 + "\n")
 
 
 
@@ -205,32 +204,76 @@ def calcular_total():
 
     costo_fin += venta["costo_base"]
 
-    costo_fin += sumar_tarifa_fija(
+    venta["costo_embalaje"] = sumar_tarifa_fija(
         venta["eleccion_embalaje"],
         dicc["embalaje"]
     )
 
-    costo_fin += sumar_tarifa_fija(
+    costo_fin += venta["costo_embalaje"]
+    
+    venta["costo_fitosanitario"] = sumar_tarifa_fija(
         dicc["obligatorio_fitosanitario"],
         dicc["fitosanitario"]
     )
 
-    costo_fin += calcular_flete(
+    costo_fin += venta["costo_fitosanitario"]
+    
+    venta["costo_flete"] = calcular_flete(
         venta["dist_region"],
         venta["tarifa_transporte"]
     )
 
-    costo_fin += calcular_recargo_peso(venta["peso"])
+    costo_fin += venta["costo_flete"]    
+    
+    venta["recargo_peso"] = calcular_recargo_peso(
+        venta["peso"]
+    )
+
+    costo_fin += venta["recargo_peso"]    
+
+    venta["subtotal"] = costo_fin
+
+    venta["importe_iva"] = costo_fin * (
+        venta["iva"] / 100
+    )
+
+    costo_fin += venta["importe_iva"]
 
     costo_fin += costo_fin * (venta["iva"] / 100)
 
-    return round(costo_fin, 2)
+    venta["costo_fin"] = round(costo_fin, 2)
+
+    return venta["costo_fin"]
+
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
 def imprimir_ticket():
     # ticket mostrando costo_fin, un desglose de cada costo, y los datos no-númericos (nombre, país, región, etc.)
-    print()
 
+    print("\n" + "="*85)
+    print("TICKET DE EXPORTACIÓN".center(85))
+    print("="*85)
+
+    print(f"Cliente: {venta['nombre']}")
+    print(f"País: {venta['pais'].capitalize()}")
+    print(f"Distancia: {venta['dist_region']} km")
+    print(f"Peso: {venta['peso']} kg")
+
+    print("-"*85)
+
+    print(f"Costo base:           ${venta['costo_base']:,.2f}")
+    print(f"Flete:                ${venta['costo_flete']:,.2f}")
+    print(f"Recargo por peso:     ${venta['recargo_peso']:,.2f}")
+    print(f"Fitosanitario:        ${venta['costo_fitosanitario']:,.2f}")
+    print(f"Embalaje especial:    ${venta['costo_embalaje']:,.2f}")
+    print(f"IVA ({venta['iva']}%):            ${venta['importe_iva']:,.2f}")
+
+    print("-"*85)
+
+    print(f"TOTAL:                ${venta['costo_fin']:,.2f}")
+
+    print("="*85)
+    print(" ")
 
 
 # LO ÚNICO QUE EL PROGRAMA EJECUTA VERDADERAMENTE:
