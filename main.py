@@ -49,14 +49,12 @@ def main():
     print("="*85 + "\n")
 
     print(f" NOMBRE ".center(85, "-"))
-
     venta["nombre"] = input("Ingrese el nombre del cliente: ").strip().title()
-
     print(f"  --> Nombre registrado: {venta['nombre']}")
     print("="*85 + "\n")
 
     print(f" COSTO BASE ".center(85, "-"))
-# siguiendo los datos del sitio web se establecen los costos máximos y mínimos
+    # siguiendo los datos del sitio web se establecen los costos máximos y mínimos
     while True:
         try:
             costo = float(input("Ingrese el costo base del pedido: "))
@@ -68,9 +66,8 @@ def main():
             else:
                 print("  --> [ERROR] El costo mínimo de un paquete es $12,000.\n")
         except ValueError:
-            print("  --> [ERROR] Ingrese solo un número.")
-    
-    print(f"  --> Costo base registrado: ${venta['costo_base']:.2f} \n")
+            print("  --> [ERROR] Ingrese solo un número.\n")
+    print(f"  --> Costo base registrado: ${venta['costo_base']:.2f}")
     print("="*85 + "\n")
 
     print(f" PAÍS ".center(85, "-"))
@@ -94,7 +91,6 @@ def main():
             print("  --> [ERROR] No es una de las opciones disponibles.\n")
         except ValueError:
             print("  --> [ERROR] Ingrese solo un número.\n")
-
     venta["iva"] = dicc[venta['pais']]["iva"]
     print(f"  --> País seleccionado: {venta['pais'].capitalize()}")
     print("="*85 + "\n")
@@ -126,7 +122,6 @@ def main():
         case "uruguay":
             print("Este país posee una única región de envío.")
             venta["dist_region"] = dicc["uruguay"]["unica"]
-
     print(f"  --> Distancia del envío: {venta['dist_region']}km")
     print("="*85 + "\n")
 
@@ -136,15 +131,14 @@ def main():
 
         if opcion in ["terrestre", "aereo"]:
             venta["tarifa_transporte"] = dicc[opcion]
+            print(f"  --> Tarifa del tipo de transporte: ${venta['tarifa_transporte']}/km")
             break
         else:
-            print("  --> [ERROR] Opción inválida. Escriba 'terrestre' o 'aereo'.")
-
-    print(f"  --> Tarifa del tipo de transporte: ${venta['tarifa_transporte']}/km")
+            print("  --> [ERROR] Opción inválida. Escriba 'terrestre' o 'aereo'.\n")
     print("="*85 + "\n")
 
     print(f" PESO ".center(85, "-"))
-# siguiendo los datos del sitio web se establece el peso máximo y mínimo
+    # siguiendo los datos del sitio web se establece el peso máximo y mínimo
     while True:
         try: 
             kilos = int(input("Ingrese el peso del pedido en kilogramos: "))
@@ -157,7 +151,6 @@ def main():
                 print("  --> [ERROR] El peso mínimo de un pedido es 1kg.\n")
         except ValueError:
             print("  --> [ERROR] Ingrese solo un número.\n")
-    
     print(f"  --> Peso del pedido registrado: {venta['peso']}kg")
     print("="*85 + "\n")
 
@@ -174,7 +167,7 @@ def main():
             venta["eleccion_embalaje"] = False
             break
         else:
-            print("  --> [ERROR] Opción inválida. Escriba únicamente 'si' o 'no'.")
+            print("  --> [ERROR] Opción inválida. Escriba únicamente 'si' o 'no'.\n")
     print("="*85 + "\n")
 
 
@@ -208,38 +201,29 @@ def calcular_total():
         venta["eleccion_embalaje"],
         dicc["embalaje"]
     )
-
     costo_fin += venta["costo_embalaje"]
     
     venta["costo_fitosanitario"] = sumar_tarifa_fija(
         dicc["obligatorio_fitosanitario"],
         dicc["fitosanitario"]
     )
-
     costo_fin += venta["costo_fitosanitario"]
     
     venta["costo_flete"] = calcular_flete(
         venta["dist_region"],
         venta["tarifa_transporte"]
     )
-
     costo_fin += venta["costo_flete"]    
     
     venta["recargo_peso"] = calcular_recargo_peso(
         venta["peso"]
     )
-
     costo_fin += venta["recargo_peso"]    
-
-    venta["subtotal"] = costo_fin
 
     venta["importe_iva"] = costo_fin * (
         venta["iva"] / 100
     )
-
     costo_fin += venta["importe_iva"]
-
-    costo_fin += costo_fin * (venta["iva"] / 100)
 
     venta["costo_fin"] = round(costo_fin, 2)
 
@@ -248,7 +232,6 @@ def calcular_total():
 #-----------------------------ESPACIO PARA FUNCIONES DE CÁLCULO------------------------------------
 
 def imprimir_ticket():
-    # ticket mostrando costo_fin, un desglose de cada costo, y los datos no-númericos (nombre, país, región, etc.)
 
     print("\n" + "="*85)
     print("TICKET DE EXPORTACIÓN".center(85))
@@ -256,8 +239,8 @@ def imprimir_ticket():
 
     print(f"Cliente: {venta['nombre']}")
     print(f"País: {venta['pais'].capitalize()}")
-    print(f"Distancia: {venta['dist_region']} km")
-    print(f"Peso: {venta['peso']} kg")
+    print(f"Distancia: {venta['dist_region']:,} km")
+    print(f"Peso: {venta['peso']:,} kg")
 
     print("-"*85)
 
